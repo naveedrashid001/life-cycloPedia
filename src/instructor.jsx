@@ -19,10 +19,8 @@ class Instructor extends React.Component {
         console.log("render - Instructor");
 
         return (
-            <div className="p-3">
-                <span className="h4 text-success">Instructor</span>
-                <i className="bi bi-toggle-on"></i>
-                <br />
+            <div >
+                
                 Name: {this.props.instructor.name} <br />
                 Email: {this.props.instructor.email}
                 <br />

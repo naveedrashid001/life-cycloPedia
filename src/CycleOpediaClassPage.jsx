@@ -60,13 +60,25 @@ class CycleOpediaClassPage extends React.Component{
         })
     }
 
+        //  Add Toggle button  for instructor
+        handleToggleInstructor =()=>{
+            this.setState((prevstate)=>{
+                return {
+                    hideInstructor : !prevstate.hideInstructor,
+                }
+            })
+        }
     render(){
     console.log("Render component");
     return (<div>
-        {
-            this.state.instructor &&  <Instructor instructor={this.state.instructor} />
-            }
-
+        <div className="p-3">
+        <span className="h4 text-success">Instructor</span> {" "}
+                <i className={`bi ${this.state.hideInstructor ? "bi-toggle-off text-danger" : "bi-toggle-on text-success"}`} onClick={this.handleToggleInstructor}></i>
+                <br />
+             {!this.state.hideInstructor ? (<Instructor instructor={this.state.instructor} />) : null}
+        
+        </div>
+       
                   {/* inputfeedback */}
                   <div className="p-3">
                    <span className="h4 text-success">FeedBack</span>
