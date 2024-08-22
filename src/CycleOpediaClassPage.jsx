@@ -1,3 +1,4 @@
+import Instructor from "./instructor"
 import { getRandom } from "./utility/api";
 import React from "react";
 
@@ -5,17 +6,22 @@ class CycleOpediaClassPage extends React.Component{
 
     constructor(props){
         super(props);
-        this.state={
+        this.state= JSON.parse(localStorage.getItem("cyclopedia")) || {
             instructor:undefined,
             studentList:[],
             studentCount:0,
-            hideInstructor:false
+            hideInstructor:false,
+            inputName:"",
+            inputFeedback:"",
          }
 
     }
     componentDidMount =async ()=>{
         console.log("component Did Mount")
-        const response = await getRandom();
+        if(JSON.parse(localStorage.getItem("cyclopedia") )){
+            // this.setState(JSON.parse(localStorage.getItem("cyclopedia")));
+        } else {
+            const response = await getRandom();
         console.log(response)
         this.setState((prevstate)=>{
             return {
@@ -27,10 +33,12 @@ class CycleOpediaClassPage extends React.Component{
             }
         })
         // return <div>this.instructor</div>
+        } 
         }
     
     componentDidUpdate=()=>{
         console.log("component Did Update")
+        localStorage.setItem("cyclopedia",JSON.stringify(this.state));
     }
     componentDidUnMount=()=>{
         console.log("component Did Un Mount")
@@ -56,19 +64,29 @@ class CycleOpediaClassPage extends React.Component{
     console.log("Render component");
     return (<div>
         {
-            this.state.instructor && (
-                <div className="p-3">
-                   <span className="h4 text-success">instructor</span> 
-                   <i className="bi bi-toggle-on"></i>
-                   <br />
-                   Name: {this.state.instructor.name} <br />
-                   Email: {this.state.instructor.email}
-                   <br />
-                   Phone: {this.state.instructor.phone}
-                </div>
-            ) }
+            this.state.instructor &&  <Instructor instructor={this.state.instructor} />
+            }
 
-<div className="p-3">
+                  {/* inputfeedback */}
+                  <div className="p-3">
+                   <span className="h4 text-success">FeedBack</span>
+                   <br />
+                   <input type="text" value={this.state.inputName}  placeholder="Name..."
+                   onChange={(e)=>{
+                    this.setState({inputName: e.target.value})
+                   }}/>  {" "}
+                   value: {this.state.inputName}
+                   <br />
+                   <textarea type="text" value={this.state.inputFeedback}  placeholder="Feedback..."
+                   onChange={(e)=>{
+                    this.setState({inputFeedback: e.target.value})
+                   }}></textarea>  {" "}
+                   value: {this.state.inputFeedback}
+                   </div>
+
+
+                   {/* student */}
+               <div className="p-3">
                    <span className="h4 text-success">Students</span>
                    <br />
                    students Count: {this.state.studentCount} <br />
