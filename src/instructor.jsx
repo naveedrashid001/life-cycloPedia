@@ -1,8 +1,6 @@
 import React from "react";
 
 class Instructor extends React.Component {
-    
-
     componentDidUpdate() {
         console.log("component - update");
     }
@@ -17,14 +15,18 @@ class Instructor extends React.Component {
 
     render() {
         console.log("render - Instructor");
+        const { instructor } = this.props;
+
+        if (!instructor) {
+            return null; // Return nothing if instructor is not available
+        }
 
         return (
-            <div >
-                
-                Name: {this.props.instructor.name} <br />
-                Email: {this.props.instructor.email}
+            <div>
+                Name: {instructor.name} <br />
+                Email: {instructor.email}
                 <br />
-                Phone: {this.props.instructor.phone}
+                Phone: {instructor.phone}
             </div>
         );
     }
