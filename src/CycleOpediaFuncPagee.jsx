@@ -1,7 +1,7 @@
 import Instructor from "./instructor";
 
-// import { getRandom } from "./utility/api";
-import React, { useEffect, useState } from "react";
+import { getRandom } from "./utility/api";
+import React, { useEffect, useRef, useState } from "react";
 
 const CycleOpediaFuncPagee = () => {
 
@@ -14,23 +14,81 @@ const CycleOpediaFuncPagee = () => {
 
     const [inputName, setInputName] = useState("");
     const [inputFeedback, setInputFeedback] = useState("");
+    // const [totaRender, settotaRender] = useState(0);
+    const totaRender = useRef(0);
+    const prevStudentCount = useRef(0);
+
+
+
 
     useEffect(()=>{
-        console.log("this will be called on every render")
+        // settotaRender((prevState)=> prevState + 1,
+    // console.log("total Render"+ settotaRender))
+    totaRender.current = totaRender.current + 1 
     })
 
-    useEffect(()=>{
-        console.log("this will be called on fist render")
-    },[])
+    // for Instructor
+    useEffect(() => {
+        // console.log("this will be called on first render");
+    
+        const getUser = async () => {
+            const response = await getRandom();
+            setState((prevState) => ({
+                ...prevState, // Spread previous state to retain all other properties
+                instructor: {
+                    name: response.data.first_name + " " + response.data.last_name,
+                    email: response.data.email,
+                    phone: response.data.phone_number,
+                },
+            }));
+        };
+    if (state.hideInstructor){
+        getUser();
+    }
+}, 
+[state.hideInstructor]);
+
+//  for to add student 
+
+useEffect(() => {
+    // console.log("this will be called on first render");
+
+    const getUser = async () => {
+        const response = await getRandom();
+        setState((prevState) => ({
+            ...prevState, // Spread previous state to retain all other properties
+            studentList: [
+                ...prevState.studentList, 
+                {
+                    name: response.data.first_name + " " + response.data.last_name,
+                }
+            ]
+        }));
+    };
+if (prevStudentCount.current < state.studentCount){
+    getUser();
+}   else if (prevStudentCount.current > state.studentCount){
+    setState((prevState)=>{
+        return {...prevState, studentList: []}
+    })
+} 
+}, 
+[state.studentCount, state.studentList]);
+    
+useEffect(()=>{
+    // settotaRender((prevState)=> prevState + 1,
+// console.log("total Render"+ settotaRender))
+prevStudentCount.current = state.studentCount 
+},[state.studentCount]) 
 
     useEffect(()=>{
-        console.log("this will be called on update")
+        // console.log("this will be called on update")
     },[inputName, inputFeedback])
 
     useEffect(()=>{
-        console.log("this will be called on initial/ first render/ unmounted")
+        // console.log("this will be called on initial/ first render/ unmounted")
         return ()=>{
-            console.log("this will be called when the component is unmounted")
+            // console.log("this will be called when the component is unmounted")
         }
     }
 )
@@ -76,6 +134,8 @@ const CycleOpediaFuncPagee = () => {
                 ) : null}
             </div>
             <div className="p-3">
+            <span className="h6">Total Render: {totaRender.current}</span> <br />
+
                 <span className="h4 text-success">FeedBack</span>
                 <br />
                 <input

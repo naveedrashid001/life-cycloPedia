@@ -2,19 +2,19 @@ import React from "react";
 
 class Instructor extends React.Component {
     componentDidUpdate() {
-        console.log("component - update");
+        // console.log("component - update");
     }
 
     componentDidMount() {
-        console.log("component - Mount");
+        // console.log("component - Mount");
     }
 
     componentWillUnmount() {
-        console.log("component - UnMount");
+        // console.log("component - UnMount");
     }
 
     render() {
-        console.log("render - Instructor");
+        // console.log("render - Instructor");
         const { instructor } = this.props;
 
         if (!instructor) {

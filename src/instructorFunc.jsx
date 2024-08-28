@@ -4,7 +4,7 @@ const  InstructorFunc = (props)=> {
 
     useEffect(()=>{
         return ()=>{
-            console.log("instructor -  unmounted")
+            // console.log("instructor -  unmounted")
         }
     }
 )
