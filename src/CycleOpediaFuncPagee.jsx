@@ -17,6 +17,8 @@ const CycleOpediaFuncPagee = () => {
     // const [totaRender, settotaRender] = useState(0);
     const totaRender = useRef(0);
     const prevStudentCount = useRef(0);
+    const feedbackInputRef = useRef(null);
+
 
 
 
@@ -86,8 +88,10 @@ prevStudentCount.current = state.studentCount
     },[inputName, inputFeedback])
 
     useEffect(()=>{
+        feedbackInputRef.current.focus()
         // console.log("this will be called on initial/ first render/ unmounted")
         return ()=>{
+            // feedbackInputRef
             // console.log("this will be called when the component is unmounted")
         }
     }
@@ -141,6 +145,7 @@ prevStudentCount.current = state.studentCount
                 <input
                     type="text"
                     value={inputName}
+                    ref={feedbackInputRef}      /// it focus on name input field
                     placeholder="Name..."
                     onChange={(e) => setInputName(e.target.value)}
                 />{" "}
@@ -148,6 +153,7 @@ prevStudentCount.current = state.studentCount
                 <br />
                 <textarea
                     value={inputFeedback}
+                    
                     placeholder="Feedback..."
                     onChange={(e) => setInputFeedback(e.target.value)}
                 ></textarea>{" "}
