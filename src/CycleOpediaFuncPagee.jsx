@@ -18,8 +18,7 @@ const CycleOpediaFuncPagee = () => {
     const totaRender = useRef(0);
     const prevStudentCount = useRef(0);
     const feedbackInputRef = useRef(null);
-
-
+    const id =  useRef(`input-${Math.random().toString(36).substr(2, 9)}`);  // generate infinte id and every component have their unique id 
 
 
 
@@ -143,22 +142,23 @@ prevStudentCount.current = state.studentCount
                 <span className="h4 text-success">FeedBack</span>
                 <br />
                 <input
-                    type="text"
-                    value={inputName}
-                    ref={feedbackInputRef}      /// it focus on name input field
-                    placeholder="Name..."
-                    onChange={(e) => setInputName(e.target.value)}
-                />{" "}
-                value: {inputName}
-                <br />
-                <textarea
-                    value={inputFeedback}
-                    
-                    placeholder="Feedback..."
-                    onChange={(e) => setInputFeedback(e.target.value)}
-                ></textarea>{" "}
-                value: {inputFeedback}
-            </div>
+                type="text"
+                value={inputName}
+                ref={feedbackInputRef}  // Focus on the name input field
+                id={id.current}  // Use unique ID for the input
+                placeholder="Name..."
+                onChange={(e) => setInputName(e.target.value)}
+            />{" "}
+            <label htmlFor={id.current}>value:</label> {inputName}
+            <br />
+            <textarea
+                value={inputFeedback}
+                id={`${id.current}-feedback`}  // Use unique ID for the textarea
+                placeholder="Feedback..."
+                onChange={(e) => setInputFeedback(e.target.value)}
+            ></textarea>{" "}
+            <label htmlFor={`${id.current}-feedback`}>value:</label> {inputFeedback}
+        </div>
             <div className="p-3">
                 <span className="h4 text-success">Students</span>
                 <br />
