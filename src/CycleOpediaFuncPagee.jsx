@@ -1,6 +1,7 @@
 import Instructor from "./instructor";
-import { getRandom } from "./utility/api";
-import React, { useState } from "react";
+
+// import { getRandom } from "./utility/api";
+import React, { useEffect, useState } from "react";
 
 const CycleOpediaFuncPagee = () => {
 
@@ -13,6 +14,27 @@ const CycleOpediaFuncPagee = () => {
 
     const [inputName, setInputName] = useState("");
     const [inputFeedback, setInputFeedback] = useState("");
+
+    useEffect(()=>{
+        console.log("this will be called on every render")
+    })
+
+    useEffect(()=>{
+        console.log("this will be called on fist render")
+    },[])
+
+    useEffect(()=>{
+        console.log("this will be called on update")
+    },[inputName, inputFeedback])
+
+    useEffect(()=>{
+        console.log("this will be called on initial/ first render/ unmounted")
+        return ()=>{
+            console.log("this will be called when the component is unmounted")
+        }
+    }
+)
+
 
     const handleAddStudent = () => {
         setState(prevState => ({

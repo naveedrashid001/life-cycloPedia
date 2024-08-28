@@ -1,35 +1,23 @@
 import React from "react";
+import { useEffect } from "react";
+const  InstructorFunc = (props)=> {
 
-class InstructorFunc extends React.Component {
-    componentDidUpdate() {
-        console.log("component - update");
-    }
-
-    componentDidMount() {
-        console.log("component - Mount");
-    }
-
-    componentWillUnmount() {
-        console.log("component - UnMount");
-    }
-
-    render() {
-        console.log("render - Instructor");
-        const { instructor } = this.props;
-
-        if (!instructor) {
-            return null; // Return nothing if instructor is not available
+    useEffect(()=>{
+        return ()=>{
+            console.log("instructor -  unmounted")
         }
+    }
+)
 
         return (
             <div>
-                Name: {instructor.name} <br />
-                Email: {instructor.email}
+                Name: {props.instructor.name} <br />
+                Email: {propsinstructor.email}
                 <br />
-                Phone: {instructor.phone}
+                Phone: {props.instructor.phone}
             </div>
         );
-    }
+    
 }
 
 export default InstructorFunc;
