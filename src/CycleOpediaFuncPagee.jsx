@@ -120,7 +120,7 @@ prevStudentCount.current = state.studentCount
     };
 
     return (
-        <div>
+        <>
             <div className="p-3">
                 <span className="h4 text-success">Instructor</span>{" "}
                 <i
@@ -182,7 +182,7 @@ prevStudentCount.current = state.studentCount
                     </div>
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 
